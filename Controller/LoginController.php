@@ -8,4 +8,9 @@ if(isset($_POST["btnIniciarSesion"]))
     header('location: ../../View/Login/home.php');
 }
 
+if(isset($_POST["btnRegistrarCuenta"]))
+{
+    header('location: ../../View/Login/login.php');
+}
+
 ?>
