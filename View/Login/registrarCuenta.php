@@ -47,7 +47,7 @@
                                         onkeyup="ConsultarNombre()">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" 
+                                    <input type="text" class="form-control form-control-user"
                                         placeholder="Nombre" id="txtNombre" name="txtNombre" readonly>
                                 </div>
                                 <div class="form-group">
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control form-control-user" 
-                                        placeholder="Contrasena" id="txtContrasena" name="txtContrasena">
+                                        placeholder="Contrasena" id="txtContrasenna" name="txtContrasenna">
                                 </div>
                                 
                                 <input type="submit" class="btn btn-danger btn-user btn-block" value="Procesar"
