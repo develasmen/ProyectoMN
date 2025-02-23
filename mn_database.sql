@@ -31,7 +31,7 @@ CREATE TABLE `usuario` (
   `Correo` varchar(100) NOT NULL,
   `Contrasenna` varchar(15) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,13 +40,44 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345');
+INSERT INTO `usuario` VALUES (1,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(2,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(3,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(4,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(5,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(6,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(7,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(8,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(9,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(10,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(11,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','daniroji20@gmail.com','123123'),(12,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','daniroji20@gmail.com','123123'),(13,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','daniroji20@gmail.com','123123'),(14,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','daniroji20@gmail.com','123123'),(15,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','daniroji20@gmail.com','asdasdasd');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'mn_database'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `SP_IniciarSesion` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_IniciarSesion`(
+	pIdentificacion varchar(15),
+    pContrasenna varchar(15)
+)
+BEGIN
+
+SELECT 
+	Id, 
+    Identificacion,
+    Nombre,
+    Correo,
+    Contrasenna
+FROM mn_database.usuario
+WHERE Identificacion = pIdentificacion
+AND Contrasenna = pContrasenna;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `SP_RegistrarCuenta` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -82,4 +113,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-23 13:11:35
+-- Dump completed on 2025-02-23 14:07:19

@@ -40,6 +40,14 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Crear Cuenta</h1>
                             </div>
+
+                            <?php  
+                                if(isset($_POST["Message"]))
+                                {
+                                    echo $_POST["Message"];
+                                }
+                            ?>
+                            
                             <form action="" method="POST" class="user">
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" 

@@ -11,7 +11,31 @@ if(isset($_POST["btnRegistrarCuenta"]))
 
     $resultado = RegistrarCuentaModel($identificacion,$nombre,$correo,$contrasenna);
 
-    //header('location: ../../View/Login/login.php');
+    if($resultado == true)
+    {
+        header('location: ../../View/Login/login.php');
+    }
+    else
+    {
+        $_POST["Message"] = "Su información no pudo ser registrada";
+    }
+}
+
+if(isset($_POST["btnIniciarSesion"]))
+{
+    $identificacion = $_POST["txtIdentificacion"];
+    $contrasenna = $_POST["txtContrasenna"];
+
+    $resultado = IniciarSesionModel($identificacion,$contrasenna);
+
+    if($resultado != null && $resultado -> num_rows > 0)
+    {
+        header('location: ../../View/Login/home.php');
+    }
+    else
+    {
+        $_POST["Message"] = "Su información no pudo ser validada correctamente";
+    }
 }
 
 ?>
