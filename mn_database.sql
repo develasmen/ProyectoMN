@@ -30,8 +30,10 @@ CREATE TABLE `usuario` (
   `Nombre` varchar(250) NOT NULL,
   `Correo` varchar(100) NOT NULL,
   `Contrasenna` varchar(15) NOT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UK_Identificacion` (`Identificacion`),
+  UNIQUE KEY `UK_Correo` (`Correo`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +42,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(2,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(3,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(4,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(5,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(6,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(7,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(8,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(9,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(10,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345'),(11,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','daniroji20@gmail.com','123123'),(12,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','daniroji20@gmail.com','123123'),(13,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','daniroji20@gmail.com','123123'),(14,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','daniroji20@gmail.com','123123'),(15,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','daniroji20@gmail.com','asdasdasd');
+INSERT INTO `usuario` VALUES (16,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,4 +115,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-23 14:07:19
+-- Dump completed on 2025-02-23 18:03:07
