@@ -18,6 +18,55 @@ USE `mn_database`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `perfil`
+--
+
+DROP TABLE IF EXISTS `perfil`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `perfil` (
+  `Id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(50) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `perfil`
+--
+
+LOCK TABLES `perfil` WRITE;
+/*!40000 ALTER TABLE `perfil` DISABLE KEYS */;
+INSERT INTO `perfil` VALUES (1,'Reclutador(a)'),(2,'Usuario(a)');
+/*!40000 ALTER TABLE `perfil` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `puesto`
+--
+
+DROP TABLE IF EXISTS `puesto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `puesto` (
+  `Id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(50) NOT NULL,
+  `Descripcion` varchar(255) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `puesto`
+--
+
+LOCK TABLES `puesto` WRITE;
+/*!40000 ALTER TABLE `puesto` DISABLE KEYS */;
+INSERT INTO `puesto` VALUES (1,'Programador','Principales tareas de un programador'),(2,'Asistente de base de datos','Principales tareas de un asistente de base de datos');
+/*!40000 ALTER TABLE `puesto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `usuario`
 --
 
@@ -30,10 +79,13 @@ CREATE TABLE `usuario` (
   `Nombre` varchar(250) NOT NULL,
   `Correo` varchar(100) NOT NULL,
   `Contrasenna` varchar(15) NOT NULL,
+  `IdPerfil` bigint(20) NOT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `UK_Identificacion` (`Identificacion`),
-  UNIQUE KEY `UK_Correo` (`Correo`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  UNIQUE KEY `UK_Correo` (`Correo`),
+  KEY `FK_UsuarioPerfil` (`IdPerfil`),
+  CONSTRAINT `FK_UsuarioPerfil` FOREIGN KEY (`IdPerfil`) REFERENCES `perfil` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +94,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (16,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345');
+INSERT INTO `usuario` VALUES (2,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345',2);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,12 +118,15 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_IniciarSesion`(
 BEGIN
 
 SELECT 
-	Id, 
+	U.Id, 
     Identificacion,
-    Nombre,
+    U.Nombre 'NombreUsuario',
     Correo,
-    Contrasenna
-FROM mn_database.usuario
+    Contrasenna,
+    IdPerfil,
+    P.Nombre 'NombrePerfil'
+FROM usuario U
+INNER JOIN perfil P on U.IdPerfil = P.Id
 WHERE Identificacion = pIdentificacion
 AND Contrasenna = pContrasenna;
 END ;;
@@ -97,8 +152,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegistrarCuenta`(
     pContrasenna varchar(15)
 )
 BEGIN
-	INSERT INTO `mn_database`.`usuario`(`Identificacion`,`Nombre`,`Correo`,`Contrasenna`)
-	VALUES(pIdentificacion,pNombre,pCorreo,pContrasenna);
+	INSERT INTO `mn_database`.`usuario`(`Identificacion`,`Nombre`,`Correo`,`Contrasenna`,`IdPerfil`)
+	VALUES(pIdentificacion,pNombre,pCorreo,pContrasenna,2);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -115,4 +170,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-23 18:03:07
+-- Dump completed on 2025-02-25 15:11:44
