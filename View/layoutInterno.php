@@ -78,12 +78,12 @@ function MenuNavegacion(){
             if(isset($_SESSION["IdPerfil"]) && $_SESSION["IdPerfil"] == "1")
             {
                 echo '<li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="../Puestos/consultarPuestos.php">
                             <i class="fas fa-fw fa-tachometer-alt"></i>
                             <span>Mant. Puestos</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="../Ofertas/consultarOfertas.php">
                             <i class="fas fa-fw fa-tachometer-alt"></i>
                             <span>Mant. Ofertas</span></a>
                     </li>';
@@ -106,7 +106,7 @@ function MenuNavegacion(){
     
 }
 
-function PrintHeader()
+function PrintCss()
 {
     echo '<head>
 
@@ -124,11 +124,22 @@ function PrintHeader()
     </head>';
 }
 
-function PrintFooter()
+function PrintScript()
 {
     echo    '<script src="../Scripts/jquery.min.js"></script>
             <script src="../Scripts/bootstrap.bundle.min.js"></script>
             <script src="../Scripts/jquery.easing.min.js"></script>
             <script src="../Scripts/sb-admin-2.min.js"></script>';
+}
+
+function PrintFooter()
+{
+    echo '<footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="text-center">
+                    <small>Proyecto MN &copy; 2020</small>
+                </div>
+            </div>
+        </footer>';
 }
 ?>

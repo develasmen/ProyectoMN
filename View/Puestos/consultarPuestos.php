@@ -1,6 +1,6 @@
 <?php
     include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/View/layoutInterno.php";
-    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/LoginController.php";
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/PuestosController.php";
 ?>
 
 
@@ -15,14 +15,41 @@
 
     <div id="wrapper">
 
-    <?php MenuNavegacion(); ?>
+        <?php MenuNavegacion(); ?>
 
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
 
-            <?php BarraNavegacion(); ?>
-               
+                <?php BarraNavegacion(); ?>
+
                 <div class="container-fluid">
+
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Descripcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $datos = ConsultarPuestos();
+
+                                while($row = mysqli_fetch_array($datos))
+                                {
+                                    echo "<tr>";
+                                    echo "<td>" . $row['Id'] . "</td>";
+                                    echo "<td>" . $row['Nombre'] . "</td>";
+                                    echo "<td>" . $row['Descripcion'] . "</td>";
+                                    echo "</tr>";
+
+                                }
+                            ?>
+                        </tbody>
+
+                    </table>
 
 
                 </div>
@@ -51,7 +78,8 @@
                 <div class="modal-body">Presione salir para finalizar su sesion actual</div>
                 <div class="modal-footer">
                     <form action="" method="POST">
-                        <input type="submit"  class="btn btn-primary" id="btnSalir" name="btnSalir" value="Salir"></input>
+                        <input type="submit" class="btn btn-primary" id="btnSalir" name="btnSalir"
+                            value="Salir"></input>
                     </form>
                 </div>
             </div>

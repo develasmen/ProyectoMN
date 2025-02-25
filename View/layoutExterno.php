@@ -1,6 +1,6 @@
 <?php
 
-    function PrintHeader()
+    function PrintCss()
     {
     echo'<head>
 
@@ -19,7 +19,7 @@
     </head>';
     }
 
-    function PrintFooter()
+    function PrintScript()
     {
     echo'   <script src="../Scripts/jquery.min.js"></script>
             <script src="../Scripts/bootstrap.bundle.min.js"></script>
