@@ -37,6 +37,7 @@
                                 <th>Descripcion</th>
                                 <th>Salario</th>
                                 <th>Horario</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,6 +52,7 @@
                                     echo "<td>" . $row['Descripcion'] . "</td>";
                                     echo "<td>" . $row['Salario'] . "</td>";
                                     echo "<td>" . $row['Horario'] . "</td>";
+                                    echo "<td><a href='actualizarOfertas.php?q=" . $row['Id'] . "'><i class='fa fa-edit'></td>";
                                     echo "</tr>";
 
                                 }

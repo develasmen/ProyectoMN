@@ -33,6 +33,7 @@
                                 <th>#</th>
                                 <th>Nombre</th>
                                 <th>Descripcion</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,6 +46,7 @@
                                     echo "<td>" . $row['Id'] . "</td>";
                                     echo "<td>" . $row['Nombre'] . "</td>";
                                     echo "<td>" . $row['Descripcion'] . "</td>";
+                                    echo "<td><a href='actualizarPuestos.php?q=" . $row['Id'] . "'><i class='fa fa-edit'></td>";
                                     echo "</tr>";
 
                                 }
