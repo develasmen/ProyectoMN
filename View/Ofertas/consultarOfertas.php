@@ -24,6 +24,10 @@
 
                 <div class="container-fluid">
 
+                    <div style="text-align: right; margin-bottom: 10px;">
+                        <a class="btn btn-outline-primary" href="agregarOfertas.php"><i class="fa fa-plus"> </i> Agregar
+                        </a>
+                    </div>
 
                     <table class="table">
                         <thead>

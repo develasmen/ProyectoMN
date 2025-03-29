@@ -22,5 +22,23 @@ function ConsultarPuestosModel()
     }
 
 
+    
+
+
+    function CrearPuestoModel($nombre,$descripcion)
+    {
+        try{
+            $context = AbrirBaseDatos(); 
+        
+            $sentencia = "CALL SP_CrearPuesto('$nombre','$descripcion')";
+            $resultado = $context -> query($sentencia);
+    
+            CerrarBaseDatos($context);
+            return $resultado;
+        }catch(Exception $e){
+            return false;
+        }
+        
+    }
 ?>
 
