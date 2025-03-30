@@ -40,13 +40,13 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="Usuario/">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400 AlineacionOpciones"></i>
-                                    Perfil
+                                    Actualizar Datos
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="../Usuario/cambiarAcceso.php">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400 AlineacionOpciones"></i>
-                                    Seguridad
+                                    Cambiar Contrasena
                                 </a>
 
                                 <div class="dropdown-divider"></div>
@@ -72,7 +72,7 @@
     {
         echo '<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../Login/home.php">
             <div class="sidebar-brand-text mx-3">Proyecto MN</div>
         </a>
 

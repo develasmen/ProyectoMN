@@ -55,13 +55,13 @@
         }        
     }   
 
-    function ActualizarContrasennaModel($id, $codigo)
+    function RecuperarContrasennaModel($id, $codigo)
     {
         try
         {
             $context = AbrirBaseDatos();
 
-            $sentencia = "CALL SP_ActualizarContrasenna('$id', '$codigo')";
+            $sentencia = "CALL SP_RecuperarContrasenna('$id', '$codigo')";
             $resultado = $context -> query($sentencia);
     
             CerrarBaseDatos($context);
