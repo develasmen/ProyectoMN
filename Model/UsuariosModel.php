@@ -22,4 +22,43 @@
             }        
         }
 
+    function ConsultarUsuarioModel($Id)
+        {
+            try
+            {
+                $context = AbrirBaseDatos();
+
+                $sentencia = "CALL SP_ConsultarUsuario('$Id')";
+                $resultado = $context -> query($sentencia);
+        
+                CerrarBaseDatos($context);
+
+                return $resultado;
+            }
+            catch(Exception $error)
+            {
+                return null;
+            }        
+        }
+
+    function ActualizarDatosModel($id, $identificacion, $nombre, $correo)
+        {
+            try
+            {
+                $context = AbrirBaseDatos();
+
+                $sentencia = "CALL SP_ActualizarUsuario('$id', '$identificacion', '$nombre', '$correo')";
+                $resultado = $context -> query($sentencia);
+        
+                CerrarBaseDatos($context);
+
+                return $resultado;
+            }
+            catch(Exception $error)
+            {
+                return null;
+            }        
+        }      
+
+        
 ?>

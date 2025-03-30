@@ -45,4 +45,32 @@
         }
             $_POST["Message"] = "No se pudo Actualizar el acceso al sistema correctamente";    
     }
+
+    function ConsultarUsuario($Id)
+    {
+        $resultado = ConsultarUsuarioModel($Id);
+        return mysqli_fetch_array($resultado);
+    }
+
+    if(isset($_POST["btnActualizarDatos"]))
+    {
+        $identificacion = $_POST["txtIdentificacion"];
+        $nombre = $_POST["txtNombre"];
+        $correo = $_POST["txtCorreo"];
+
+        $resultado = ActualizarDatosModel($_SESSION["IdUsuario"], $identificacion, $nombre, $correo);
+
+        if($resultado == true)
+        {
+            $_SESSION["NombreUsuario"] = $correo;
+            $_SESSION["CorreoUsuario"] = $nombre;
+            
+
+            header('location: ../../View/Login/home.php');
+        }
+        else
+        {
+            $_POST["Message"] = "No se pudo actualizar el usuario";    
+        } 
+    }
 ?>

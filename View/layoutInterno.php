@@ -40,7 +40,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="Usuario/">
+                                <a class="dropdown-item" href="../Usuario/actualizarDatos.php">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400 AlineacionOpciones"></i>
                                     Actualizar Datos
                                 </a>
@@ -134,6 +134,7 @@
               <script src="../Scripts/bootstrap.bundle.min.js"></script>
               <script src="../Scripts/jquery.easing.min.js"></script>
               <script src="../Scripts/sb-admin-2.min.js"></script>
+              <script src="../Scripts/comunes.js"></script>
               <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
               <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap4.js"></script>';
     }
