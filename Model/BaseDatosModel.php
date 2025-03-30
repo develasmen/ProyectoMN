@@ -10,5 +10,4 @@
         mysqli_close($context);
     }
 
-
 ?>

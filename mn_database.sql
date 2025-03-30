@@ -29,10 +29,11 @@ CREATE TABLE `oferta` (
   `IdPuesto` bigint(20) NOT NULL,
   `Salario` decimal(10,2) NOT NULL,
   `Horario` varchar(255) NOT NULL,
+  `Estado` bit(1) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `FK_OfertaPuesto` (`IdPuesto`),
   CONSTRAINT `FK_OfertaPuesto` FOREIGN KEY (`IdPuesto`) REFERENCES `puesto` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +42,7 @@ CREATE TABLE `oferta` (
 
 LOCK TABLES `oferta` WRITE;
 /*!40000 ALTER TABLE `oferta` DISABLE KEYS */;
-INSERT INTO `oferta` VALUES (1,1,3500.00,'Lunes  a Viernes de 8-5');
+INSERT INTO `oferta` VALUES (1,1,3500.00,'Lunes a Viernes de 8:00 a 17:00',_binary '\0'),(2,4,2350.00,'Lunes a Viernes de 08:00 am - 02:00 pm',_binary ''),(3,5,4250.00,'Lunes a Viernes',_binary '\0');
 /*!40000 ALTER TABLE `oferta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +82,7 @@ CREATE TABLE `puesto` (
   `Nombre` varchar(50) NOT NULL,
   `Descripcion` varchar(255) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,7 +91,7 @@ CREATE TABLE `puesto` (
 
 LOCK TABLES `puesto` WRITE;
 /*!40000 ALTER TABLE `puesto` DISABLE KEYS */;
-INSERT INTO `puesto` VALUES (1,'Programador','Principales tareas de un programador'),(2,'Asistente de base de datos','Principales tareas de un asistente de base de datos');
+INSERT INTO `puesto` VALUES (1,'Programador','Principales tareas de un programador'),(2,'Asistente de Base de Datos','Principales tareas de un Asistente de Base de Datos'),(3,'Administrador de Capital Humano','Contratación\r\nSeguimiento de procesos\r\nSelección y Reclutamiento'),(4,'Capital Humano JR','Seguimiento a procesos nuevos'),(5,'Prueba2','Descripción de la prueba 2');
 /*!40000 ALTER TABLE `puesto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,10 +111,10 @@ CREATE TABLE `usuario` (
   `IdPerfil` bigint(20) NOT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `UK_Identificacion` (`Identificacion`),
-  UNIQUE KEY `UK_Correo` (`Correo`),
+  UNIQUE KEY `Uk_Correo` (`Correo`),
   KEY `FK_UsuarioPerfil` (`IdPerfil`),
   CONSTRAINT `FK_UsuarioPerfil` FOREIGN KEY (`IdPerfil`) REFERENCES `perfil` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,13 +123,155 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (2,'118150931','DANIEL ESTEBAN VELASQUEZ MENDEZ','develasmen@gmail.com','12345',2),(4,'305390518','DANIELA RODRIGUEZ JIMENEZ','daniroji20@gmail.com','123',1);
+INSERT INTO `usuario` VALUES (5,'305340063','SEBASTIAN ADOLFO MORA FIGUEROA','smora40063@ufide.ac.cr','40063',1),(11,'304590415','EDUARDO JOSE CALVO CASTILLO','ecalvo90415@ufide.ac.cr','90415',2),(12,'305230298','IGNACIO ENRIQUE VARGAS MENDOZA','ivargas30298@ufide.ac.cr','OTSQ83',2);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario_oferta`
+--
+
+DROP TABLE IF EXISTS `usuario_oferta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuario_oferta` (
+  `Id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `IdUsuario` bigint(11) NOT NULL,
+  `IdOferta` bigint(11) NOT NULL,
+  `Fecha` datetime(6) NOT NULL,
+  `Estado` int(11) NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `FK_RELACION_USUARIO` (`IdUsuario`),
+  KEY `FK_RELACION_OFERTA` (`IdOferta`),
+  CONSTRAINT `FK_RELACION_OFERTA` FOREIGN KEY (`IdOferta`) REFERENCES `oferta` (`Id`),
+  CONSTRAINT `FK_RELACION_USUARIO` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario_oferta`
+--
+
+LOCK TABLES `usuario_oferta` WRITE;
+/*!40000 ALTER TABLE `usuario_oferta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuario_oferta` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'mn_database'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `SP_ActualizarContrasenna` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarContrasenna`(
+	pId 	bigint(20),
+	pCodigo varchar(6)
+)
+BEGIN
+
+	UPDATE 	usuario
+    SET 	Contrasenna = pCodigo
+    WHERE 	Id = pId;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_ActualizarOferta` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarOferta`(pId bigint(20), 
+																  pIdPuesto bigint(20), 
+																  pSalario decimal(10,2), 
+																  pHorario varchar(255),
+                                                                  pEstado bit)
+BEGIN
+
+	UPDATE oferta
+	SET IdPuesto = pIdPuesto,
+		Salario = pSalario,
+		Horario = pHorario,
+        Estado = pEstado
+	WHERE Id = pId;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_ActualizarPuesto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarPuesto`(pId bigint(20), pNombre VARCHAR(50), pDescripcion VARCHAR(255))
+BEGIN
+
+	UPDATE puesto
+	SET Nombre = pNombre,
+		Descripcion = pDescripcion
+	WHERE Id = pId;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_ConsultarOferta` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsultarOferta`(pId bigint(20))
+BEGIN
+
+	SELECT 	O.Id,
+			IdPuesto,
+            P.Nombre,
+            P.Descripcion,
+			Salario,
+			Horario,
+            Estado,
+            CASE WHEN Estado = 1 THEN 'Activo' ELSE 'Inactivo' END DescripcionEstado,
+            CASE WHEN Estado = 1 THEN 'checked' ELSE '' END IndicadorEstado
+	FROM 	oferta O
+    INNER JOIN puesto P ON O.IdPuesto = P.Id
+    WHERE O.Id = pId;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `SP_ConsultarOfertas` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -141,14 +284,43 @@ UNLOCK TABLES;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsultarOfertas`()
 BEGIN
+
 	SELECT 	O.Id,
 			IdPuesto,
             P.Nombre,
             P.Descripcion,
 			Salario,
-			Horario
-	FROM oferta O 
+			Horario,
+            Estado,
+            CASE WHEN Estado = 1 THEN 'Activo' ELSE 'Inactivo' END DescripcionEstado
+	FROM 	oferta O
     INNER JOIN puesto P ON O.IdPuesto = P.Id;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_ConsultarPuesto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsultarPuesto`(pId bigint(20))
+BEGIN
+
+	SELECT	Id,
+			Nombre,
+			Descripcion
+	FROM 	puesto
+    WHERE   Id = pId;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -167,11 +339,56 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsultarPuestos`()
 BEGIN
-	SELECT 
-			Id,
+
+	SELECT	Id,
 			Nombre,
 			Descripcion
-	FROM puesto;
+	FROM 	puesto;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_CrearOferta` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CrearOferta`(pIdPuesto bigint(20), pSalario decimal(10,2), pHorario varchar(255))
+BEGIN
+
+	INSERT INTO oferta(IdPuesto,Salario,Horario,Estado)
+	VALUES (pIdPuesto,pSalario,pHorario,1);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_CrearPuesto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CrearPuesto`(pNombre VARCHAR(50), pDescripcion VARCHAR(255))
+BEGIN
+
+	INSERT INTO puesto(Nombre,Descripcion)
+	VALUES(pNombre,pDescripcion);
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -190,22 +407,22 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_IniciarSesion`(
 	pIdentificacion varchar(15),
-    pContrasenna varchar(15)
+	pContrasenna varchar(15)
 )
 BEGIN
 
-SELECT 
-	U.Id, 
-    Identificacion,
-    U.Nombre 'NombreUsuario',
-    Correo,
-    Contrasenna,
-    IdPerfil,
-    P.Nombre 'NombrePerfil'
-FROM usuario U
-INNER JOIN perfil P on U.IdPerfil = P.Id
-WHERE Identificacion = pIdentificacion
-AND Contrasenna = pContrasenna;
+	SELECT	U.Id,
+			Identificacion,
+			U.Nombre 'NombreUsuario',
+			Correo,
+			Contrasenna,
+            IdPerfil,
+            P.Nombre 'NombrePerfil'
+	FROM 	usuario U
+    INNER JOIN perfil P ON U.IdPerfil = P.Id 
+	WHERE 	Identificacion = pIdentificacion
+		AND Contrasenna = pContrasenna;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -225,12 +442,46 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegistrarCuenta`(
 	pIdentificacion varchar(15),
 	pNombre varchar(250),
-    pCorreo varchar(100),
-    pContrasenna varchar(15)
+	pCorreo varchar(100),
+	pContrasenna varchar(15)
 )
 BEGIN
+
 	INSERT INTO `mn_database`.`usuario`(`Identificacion`,`Nombre`,`Correo`,`Contrasenna`,`IdPerfil`)
 	VALUES(pIdentificacion,pNombre,pCorreo,pContrasenna,2);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_ValidarUsuarioCorreo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ValidarUsuarioCorreo`(
+	pCorreo varchar(100)
+)
+BEGIN
+
+	SELECT	U.Id,
+			Identificacion,
+			U.Nombre 'NombreUsuario',
+			Correo,
+			Contrasenna,
+            IdPerfil,
+            P.Nombre 'NombrePerfil'
+	FROM 	usuario U
+    INNER JOIN perfil P ON U.IdPerfil = P.Id 
+	WHERE 	Correo = pCorreo;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -247,4 +498,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-25 17:13:15
+-- Dump completed on 2025-03-12 20:58:45

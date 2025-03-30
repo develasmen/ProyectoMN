@@ -8,7 +8,6 @@
 
 <?php PrintCss(); ?>
 
-
 <body class="bg-gradient-primary">
 
     <div class="container MargenSuperior">
@@ -28,14 +27,14 @@
                                         <h1 class="h4 text-gray-900 mb-4">Proyecto MN</h1>
                                     </div>
 
-                                <?php  
-                                    if(isset($_POST["Message"]))
-                                    {
-                                    echo '<div class="alert alert-warning Mensajes">'.$_POST["Message"] . '</div>';
-                                    }
-                                ?>
+                                    <?php
+                                        if(isset($_POST["Message"]))
+                                        {
+                                            echo '<div class="alert alert-warning Mensajes">' . $_POST["Message"] . '</div>';                                   
+                                        }
+                                    ?>
 
-                                    <form action="" method="POST" class="user">
+                                    <form action="" method="POST">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="txtIdentificacion" name="txtIdentificacion"
@@ -69,7 +68,7 @@
         </div>
 
     </div>
-    
+
     <?php PrintScript(); ?>
 
 </body>
